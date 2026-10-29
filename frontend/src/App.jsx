@@ -15,6 +15,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import SubmissionPage from './pages/SubmissionPage';
 import TeacherDashboard from './pages/TeacherDashboard';
 import { ROLE_HOME } from './utils/constants';
+import PublicSubmissionPage from './pages/PublicSubmissionPage';
 
 const TEACHING = ['teacher', 'admin'];
 
@@ -26,7 +27,9 @@ function HomeRedirect() {
 export default function App() {
   return (
     <Routes>
+      <Route path="/submit" element={<PublicSubmissionPage />} />
       <Route path="/login" element={<LoginPage />} />
+     
       <Route path="/register" element={<RegisterPage />} />
 
       <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>

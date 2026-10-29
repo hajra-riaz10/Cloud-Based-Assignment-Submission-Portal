@@ -5,6 +5,7 @@ Relationships:
     User(teacher) 1 --- * Course 1 --- * Assignment 1 --- * Submission * --- 1 User(student)
     User(student) * --- * Course   (through Enrollment)
 """
+from backend.models.url_submission import UrlSubmission
 
 from backend.models.assignment import Assignment
 from backend.models.audit import AuditLog, RevokedToken
@@ -23,4 +24,5 @@ __all__ = [
     "Submission",
     "SubmissionStatus",
     "User",
+  "UrlSubmission"
 ]

@@ -18,7 +18,17 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from backend.config import get_settings
 from backend.middleware.request_logging import RequestContextMiddleware
-from backend.routes import admin, assignments, auth, courses, dashboard, files, health, submissions
+from backend.routes import (
+    admin,
+    assignments,
+    auth,
+    courses,
+    dashboard,
+    files,
+    health,
+    submissions,
+    url_submissions,
+)
 from backend.utils.errors import AppError
 from backend.utils.logging_config import configure_logging
 from cloud.database_service import init_db
@@ -108,11 +118,22 @@ def create_app() -> FastAPI:
                      "request_id": getattr(request.state, "request_id", None)},
         )
 
-    for router in (health.router, auth.router, courses.router, assignments.router,
-                   submissions.router, dashboard.router, admin.router, files.router):
+
+    for router in (
+        health.router,
+        auth.router,
+        courses.router,
+        assignments.router,
+        submissions.router,
+        dashboard.router,
+        admin.router,
+        files.router,
+        url_submissions.router,
+    ):
         app.include_router(router)
 
     return app
+
 
 
 app = create_app()
