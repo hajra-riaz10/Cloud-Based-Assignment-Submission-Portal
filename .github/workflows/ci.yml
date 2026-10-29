@@ -58,3 +58,27 @@ jobs:
 
       - name: Build backend image
         run: docker build -t assignment-portal-api .
+
+  deliver-report:
+    name: Deliver report to local PC
+    runs-on: [self-hosted, Windows, X64]
+    needs: backend-tests
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download test report
+        uses: actions/download-artifact@v4
+        with:
+          name: test-report
+          path: test-report
+
+      - name: Send JSON report to local receiver
+        env:
+          REPORT_RECEIVER_TOKEN: ${{ secrets.REPORT_RECEIVER_TOKEN }}
+        run: python scripts/send_test_report.py
