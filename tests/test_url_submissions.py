@@ -52,5 +52,3 @@ def test_invalid_submission_url_is_rejected(client):
 
     assert response.status_code == 422
     assert client.get("/api/url-submissions/").json() == []
-def test_temporary_demo_failure():
-    assert 1 == 2, "Intentional failure for Task 5 demonstration"
